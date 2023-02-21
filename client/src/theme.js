@@ -49,5 +49,25 @@ export const theme = createTheme({
             main: shades.neutral[500],
             light: shades.neutral[100],
         },
+    },
+    typography: {
+        fontFamily: ["Fauna One", "sans-serif"].join(","),
+        fontSize: 11,
+        h1: {
+            fontFamily: ["Cinzel", "sans-serif"].join(","),
+            fontSize: 48,
+        },
+        h2: {
+            fontFamily: ["Cinzel", "sans-serif"].join(","),
+            fontSize: 36,
+        },
+        h3: {
+            fontFamily: ["Cinzel", "sans-serif"].join(","),
+            fontSize: 20,
+        },
+        h4: {
+            fontFamily: ["Cinzel", "sans-serif"].join(","),
+            fontSize: 14,
+        }
     }
 })
