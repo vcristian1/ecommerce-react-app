@@ -56,6 +56,21 @@ const Navbar = () => {
               <IconButton sx={{ color: "black"}}>
                 <PersonOutline />
               </IconButton>
+              <Badge
+              badgeContent={cart.length}
+              color="secondary"
+              // Makes the number badge above cart disappear if it is 0 items.
+              invisible={cart.length === 0}
+              sx={{
+                "& .MuiBadge-badge": {
+                    right: 5,
+                    top: 5,
+                    padding: "0 4px",
+                    height: "14px",
+                    minWidth: "13px",
+                }
+              }}
+              >
               <IconButton 
               sx={{ color: "black"}}
               // Updates our state once we click on it, specifically it runs setIsCartOpen function in state/index.js
@@ -63,6 +78,7 @@ const Navbar = () => {
               >
                 <ShoppingBagOutlined />
               </IconButton>
+              </Badge>
               <IconButton sx={{ color: "black"}}>
                 <MenuOutlined />
               </IconButton>
