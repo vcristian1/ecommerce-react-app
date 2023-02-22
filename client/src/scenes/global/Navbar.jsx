@@ -1,17 +1,20 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { Badge, Box, IconButton } from "@mui/material";
 import {
     PersonOutline,
     ShoppingBagOutlined,
     MenuOutlined,
     SearchOutlined
 } from "@mui/icons-material";
+import { useDispatch, useSelector } from 'react-redux';
+import { Badge, Box, IconButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { shades } from "../../theme";
+import { setIsCartOpen } from '../../state';
+
 
 const Navbar = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const cart = useSelector((state) => state.cart.cart);
 
     return (
       <Box
@@ -53,14 +56,17 @@ const Navbar = () => {
               <IconButton sx={{ color: "black"}}>
                 <PersonOutline />
               </IconButton>
-              <IconButton sx={{ color: "black"}}>
+              <IconButton 
+              sx={{ color: "black"}}
+              // Updates our state once we click on it, specifically it runs setIsCartOpen function in state/index.js
+              onClick={() => dispatch(setIsCartOpen({}))}
+              >
                 <ShoppingBagOutlined />
               </IconButton>
               <IconButton sx={{ color: "black"}}>
                 <MenuOutlined />
               </IconButton>
             </Box>
-
         </Box>
       </Box>
     )
