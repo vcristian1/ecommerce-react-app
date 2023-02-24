@@ -1,8 +1,11 @@
 // Component that will set up our layout on our homepage.
+import MainCarousel from './MainCarousel';
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <div className='home'>
+      <MainCarousel />
+    </div>
   )
 }
 
