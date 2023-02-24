@@ -12,8 +12,8 @@ const importAll = (r) =>
     return acc;
   }, {});
 
-const heroTextureImports = importAll(
-    require.context("../../assets", false, /\.(png|jpg?g|svg)$/)
+export const heroTextureImports = importAll(
+  require.context("../../assets", false, /\.(png|jpe?g|svg)$/)
 );
 
 const MainCarousel = () => {
