@@ -10,6 +10,7 @@ import Confirmation from './scenes/checkout/Confirmation';
 import Navbar from './scenes/global/Navbar';
 import Home from "./scenes/home/Home"
 import ItemDetails from './scenes/itemDetails/ItemDetails';
+import CartMenu from './scenes/global/CartMenu';
 
 // Component provided by React Router that ensures when you go to another page you start at the top of the page.
 // This way the user isnt on the last position they were in when they go to the next page.
@@ -35,6 +36,7 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/checkout/success" element={<Confirmation />} />
         </Routes>
+        <CartMenu />
       </BrowserRouter>
     </div>
   );
