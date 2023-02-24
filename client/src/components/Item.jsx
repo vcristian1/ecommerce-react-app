@@ -53,27 +53,47 @@ const Item = ({ item, width}) => {
                 padding="0 5%"
                 >
                     <Box display="flex" justifyContent="space-between">
-                        
+
                       {/* Amount Here */}
                       <Box display="flex" alignItems="center" backgroundColor={shades.neutral[100]} borderRadius="3px">
-                        <IconButton
-                            onClick={() =>
-                                setCount(Math.max(count -1, 1))
-                            }
+                            <IconButton
+                                onClick={() =>
+                                    setCount(Math.max(count -1, 1))
+                                }
                             >
                             <RemoveIcon />
                             </IconButton>
                             <Typography color={shades.primary[300]}>{count}</Typography>
                             <IconButton
-                            onClick={() =>
-                                setCount(count +1)
-                            }
+                                onClick={() =>
+                                    setCount(count +1)
+                                }
                             >
                             <AddIcon />
                             </IconButton>
                       </Box>
+
+                      {/* Button Here */}
+                      <Button 
+                        onClick={() => { dispatch(addToCart({ item: {...item, count}}))}}
+                        sx={{
+                            backgroundColor: shades.primary[300], color: "white"
+                        }}
+                      >
+                        Add to Cart
+                      </Button>
                     </Box>
                 </Box>
+            </Box>
+            <Box mt="3px">
+              <Typography variant='subtitle2' color={neutral.dark}>
+                {category
+                  .replace(/([A-Z])/g, "$1")
+                  .replace(/^./, (str) => str.toUpperCase())
+                }
+              </Typography>
+              <Typography>{name}</Typography>
+              <Typography fontWeight="bold">{price}</Typography>
             </Box>
         </Box>
     )
