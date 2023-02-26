@@ -17,7 +17,7 @@ const Item = ({ item, width}) => {
     const { palette: { neutral },
     } = useTheme();
 
-    const { category, price, name, image } = image.attributes;
+    const { category, price, name, image } = item.attributes;
     // Destructuring the image data
     const {
         data: {
