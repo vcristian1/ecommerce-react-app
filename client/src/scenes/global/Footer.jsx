@@ -47,7 +47,7 @@ const Footer = () => {
                 <Typography mb="30px">Corportate and Bulk Purchasing</Typography>
                 <Typography mb="30px">Returns and Refunds</Typography>
             </Box>
-            <Box>
+            <Box width="clamp(20%, 30%, 40%)">
                 <Typography variant="h4" fontWeight="bold" mb="30px">
                     Contact Us
                 </Typography>
