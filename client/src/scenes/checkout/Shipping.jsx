@@ -1,8 +1,22 @@
-import React from 'react'
+import { Box, Checkbox, FormControlLabel, Typography} from '@mui/material';
+import { AddressForm } from './AddressForm';
 
-const Shipping = () => {
+const Shipping = ({
+    values,
+    errors,
+    touched,
+    handleBlur,
+    handleChange,
+    setFieldValue,
+}) => {
   return (
-    <div>Shipping</div>
+    <Box m="30px auto">
+        {/* Billing Form Here */}
+        <Box>
+            <Typography sx={{ mb: "15px" }} fontSize="18px"></Typography>
+            <AddressForm />
+        </Box>
+    </Box>
   )
 }
 

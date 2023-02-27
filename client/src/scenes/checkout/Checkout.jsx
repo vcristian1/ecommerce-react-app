@@ -4,8 +4,8 @@ import { Formik } from 'formik';
 import { useState } from 'react';
 // Validation libray
 import * as yup from "yup";
-import { shades } from "../../theme";
 import Shipping from './Shipping'
+import { shades } from "../../theme";
 
 const initialValues = {
   billingAddress: {
