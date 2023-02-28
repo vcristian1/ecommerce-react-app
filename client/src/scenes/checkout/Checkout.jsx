@@ -129,7 +129,7 @@ const Checkout = () => {
               setFieldValue,
             }) => (
               <form onSubmit={handleSubmit}>
-                {isFirst && ( 
+                {isFirstStep && ( 
                   <Shipping 
                   values={values}
                   errors={errors}
