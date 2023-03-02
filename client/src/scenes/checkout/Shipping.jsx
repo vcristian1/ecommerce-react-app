@@ -16,7 +16,7 @@ const Shipping = ({
             <Typography sx={{ mb: "15px" }} fontSize="18px">Billing Information</Typography>
             <AddressForm 
              type="billingAddress"
-             value={values.billingAddress}
+             values={values.billingAddress}
              errors={errors}
              touched={touched}
              handleBlur={handleBlur}
@@ -47,7 +47,7 @@ const Shipping = ({
                 <Typography sx={{ mb: "15px" }} fontSize="18px">Shipping Information</Typography>
                 <AddressForm 
                     type="billingAddress"
-                    value={values.billingAddress}
+                    values={values.billingAddress}
                     errors={errors}
                     touched={touched}
                     handleBlur={handleBlur}
