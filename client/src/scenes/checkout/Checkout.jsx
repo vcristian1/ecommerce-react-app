@@ -5,6 +5,7 @@ import { useState } from 'react';
 // Validation libray
 import * as yup from "yup";
 import Shipping from './Shipping'
+import Payment from "./Payment"
 import { shades } from "../../theme";
 
 const initialValues = {
@@ -151,6 +152,51 @@ const Checkout = () => {
                   setFieldValue={setFieldValue}
                   />
                 )}
+                {isSecondStep && ( 
+                  <Payment 
+                  values={values}
+                  errors={errors}
+                  touched={touched}
+                  handleBlur={handleBlur}
+                  handleChange={handleChange}
+                  setFieldValue={setFieldValue}
+                  />
+                )}
+                <Box display="flex" justifyContent="space-between" gap="50px">
+                  {/* If we are on the second step show this button */}
+                  {isSecondStep && (
+                    <Button
+                     fullWidth
+                     color="primary"
+                     variant="contained"
+                     sx={{
+                      backgroundColor: shades.primary[200],
+                      boxShadow: "none",
+                      color: "white",
+                      borderRadius: 0,
+                      padding: "15px 40px"
+                     }}
+                     onClick={() => setActiveStep(activeStep - 1)}
+                    >Back</Button>
+                  )}
+                  <Button
+                     fullWidth
+                     type="submit"
+                     color="primary"
+                     variant="contained"
+                     sx={{
+                      backgroundColor: shades.primary[400],
+                      boxShadow: "none",
+                      color: "white",
+                      borderRadius: 0,
+                      padding: "15px 40px"
+                     }}
+                     onClick={() => setActiveStep(activeStep - 1)}
+                    >
+                      {/* If you are on the first step the button text will be "Next" if not it will be "Place Order" */}
+                      {isFirstStep ? "Next" : "Place Order"}
+                    </Button>
+                </Box>
               </form>
             )}
           </Formik>
