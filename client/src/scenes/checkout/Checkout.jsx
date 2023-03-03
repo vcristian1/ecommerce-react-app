@@ -117,7 +117,28 @@ const Checkout = () => {
   }
 
   async function makePayment(values) {
+    const stripe = await stripePromise;
+    const requestBody = {
+      userName: [values.firstName, values.lastName].join(" "),
+      email: values.email,
+      // Grab everything in the cart currently, grab the id of count of each item,then we return the id and the count as properties.
+      products: cart.map(({ id, count }) => ({
+        // Creating a new array with id and count for each value.
+        id,
+        count,
+      }))
+    };
 
+    const response = await fetch("http://localhost1337/api/orders", {
+      method: "POST",
+      headers: { "Content-Type": "application/json"},
+      body: JSON.stringify(requestBody),
+    });
+
+    const session = await response.json();
+    await stripe.redirectToCheckout({
+      sessionId: session.id
+    })
   }
 
     return (
