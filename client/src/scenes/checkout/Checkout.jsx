@@ -7,7 +7,7 @@ import * as yup from "yup";
 import Shipping from './Shipping'
 import Payment from "./Payment";
 import { shades } from "../../theme";
-import { loadStripe, redirectToCheckout } from "@stripe/stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 
 const stripePromise = loadStripe(
   "pk_test_51MhMAREr1pfCWO2ZqL5mobOLEyLXgt5xfWTee9rHGUEjJy3q1AR1K4W46m3w69SQmLjb3PAIWkqRT1PZn9vEVC1C00LzVTfHGm"
