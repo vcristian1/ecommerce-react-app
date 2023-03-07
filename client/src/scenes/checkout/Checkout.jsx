@@ -7,91 +7,11 @@ import * as yup from "yup";
 import Shipping from './Shipping'
 import Payment from "./Payment";
 import { shades } from "../../theme";
-import { loadStripe } from "@stripe/stripe-js";
+import { loadStripe, redirectToCheckout } from "@stripe/stripe-js";
 
 const stripePromise = loadStripe(
   "pk_test_51MhMAREr1pfCWO2ZqL5mobOLEyLXgt5xfWTee9rHGUEjJy3q1AR1K4W46m3w69SQmLjb3PAIWkqRT1PZn9vEVC1C00LzVTfHGm"
 );
-
-const initialValues = {
-  billingAddress: {
-    firstName: "",
-    lastName: "",
-    country: "",
-    street1: "",
-    street2: "",
-    city: "",
-    state: "",
-    zipCode: ""
-  },
-  shippingAddress: {
-    isSameAddress: true,
-    firstName: "",
-    lastName: "",
-    country: "",
-    street1: "",
-    street2: "",
-    city: "",
-    state: "",
-    zipCode: ""
-  },
-  email: "",
-  phoneNumber: "",
-}
-
-// The schema is for validation, and determines if it is required and what the type that is required.
-const checkoutSchema = [
-  // First Step in the validation schema
-  yup.object().shape({
-    billingAddress: yup.object().shape({
-      firstName: yup.string().required("required"),
-      lastName: yup.string().required("required"),
-      country: yup.string().required("required"),
-      street1: yup.string().required("required"),
-      street2: yup.string(),
-      city: yup.string().required("required"),
-      state: yup.string().required("required"),
-      zipCode: yup.string().required("required"),
-    }),
-    shippingAddress: yup.object().shape({
-      isSameAddress: yup.boolean(),
-      firstName: yup.string().when("isSameAddress", {
-        is: false,
-        then: yup.string().required("required")
-      }),
-      lastName: yup.string().when("isSameAddress", {
-        is: false,
-        then: yup.string().required("required")
-      }),
-      country: yup.string().when("isSameAddress", {
-        is: false,
-        then: yup.string().required("required")
-      }),
-      street1: yup.string().when("isSameAddress", {
-        is: false,
-        then: yup.string().required("required")
-      }),
-      street2: yup.string(),
-      city: yup.string().when("isSameAddress", {
-        is: false,
-        then: yup.string().required("required")
-      }),
-      state: yup.string().when("isSameAddress", {
-        is: false,
-        then: yup.string().required("required")
-      }),
-      zipCode: yup.string().when("isSameAddress", {
-        is: false,
-        then: yup.string().required("required")
-      }),
-    }),
-  }),
-  // Second step in the validation schema
-  yup.object().shape({
-    email: yup.string().required("required"),
-    phoneNumber: yup.string().required("required"),
-  })
-]
 
 // Component that will set up our layout on our Checkout page.
 const Checkout = () => {
@@ -121,24 +41,21 @@ const Checkout = () => {
     const requestBody = {
       userName: [values.firstName, values.lastName].join(" "),
       email: values.email,
-      // Grab everything in the cart currently, grab the id of count of each item,then we return the id and the count as properties.
       products: cart.map(({ id, count }) => ({
-        // Creating a new array with id and count for each value.
         id,
         count,
-      }))
+      })),
     };
 
-    const response = await fetch("http://localhost1337/api/orders", {
+    const response = await fetch("http://localhost:1337/api/orders", {
       method: "POST",
-      headers: { "Content-Type": "application/json"},
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(requestBody),
     });
-
     const session = await response.json();
     await stripe.redirectToCheckout({
-      sessionId: session.id
-    })
+      sessionId: session.id,
+    });
   }
 
     return (
@@ -217,7 +134,6 @@ const Checkout = () => {
                       borderRadius: 0,
                       padding: "15px 40px"
                      }}
-                     onClick={() => setActiveStep(activeStep - 1)}
                     >
                       {/* If you are on the first step the button text will be "Next" if not it will be "Place Order" */}
                       {isFirstStep ? "Next" : "Place Order"}
@@ -230,5 +146,84 @@ const Checkout = () => {
       </Box>
     )
   }
-  
-  export default Checkout
+const initialValues = {
+  billingAddress: {
+    firstName: "",
+    lastName: "",
+    country: "",
+    street1: "",
+    street2: "",
+    city: "",
+    state: "",
+    zipCode: ""
+  },
+  shippingAddress: {
+    isSameAddress: true,
+    firstName: "",
+    lastName: "",
+    country: "",
+    street1: "",
+    street2: "",
+    city: "",
+    state: "",
+    zipCode: ""
+  },
+  email: "",
+  phoneNumber: "",
+}
+
+// The schema is for validation, and determines if it is required and what the type that is required.
+const checkoutSchema = [
+  // First Step in the validation schema
+  yup.object().shape({
+    billingAddress: yup.object().shape({
+      firstName: yup.string().required("required"),
+      lastName: yup.string().required("required"),
+      country: yup.string().required("required"),
+      street1: yup.string().required("required"),
+      street2: yup.string(),
+      city: yup.string().required("required"),
+      state: yup.string().required("required"),
+      zipCode: yup.string().required("required"),
+    }),
+    shippingAddress: yup.object().shape({
+      isSameAddress: yup.boolean(),
+      firstName: yup.string().when("isSameAddress", {
+        is: false,
+        then: yup.string().required("required")
+      }),
+      lastName: yup.string().when("isSameAddress", {
+        is: false,
+        then: yup.string().required("required")
+      }),
+      country: yup.string().when("isSameAddress", {
+        is: false,
+        then: yup.string().required("required")
+      }),
+      street1: yup.string().when("isSameAddress", {
+        is: false,
+        then: yup.string().required("required")
+      }),
+      street2: yup.string(),
+      city: yup.string().when("isSameAddress", {
+        is: false,
+        then: yup.string().required("required")
+      }),
+      state: yup.string().when("isSameAddress", {
+        is: false,
+        then: yup.string().required("required")
+      }),
+      zipCode: yup.string().when("isSameAddress", {
+        is: false,
+        then: yup.string().required("required")
+      }),
+    }),
+  }),
+  // Second step in the validation schema
+  yup.object().shape({
+    email: yup.string().required("required"),
+    phoneNumber: yup.string().required("required"),
+  })
+];
+
+  export default Checkout;
